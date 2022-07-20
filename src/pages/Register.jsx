@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { createUser } from "../auth/firebase";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [firstName, setFirstName] = useState();
@@ -8,18 +8,21 @@ const Register = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    createUser(email, password, navigate);
-    // console.log(firstName);
+    const displayName = `${firstName} ${lastName}`;
+    console.log(firstName, lastName);
+    createUser(email, password, navigate, displayName);
   };
+
   return (
     <div className="d-flex justify-content-center">
-      <div className="form-image d-none d-md-block">
-        <img src="https://picsum.photos/800/800" alt="random-img" />
+      <div className="form-image d-none d-md-block ">
+        <img src={"https://picsum.photos/800/800"} alt="sample-movie" />
       </div>
       <div className="register-form">
-        <h1 className="form-title display-3">Register</h1>
+        <h1 className="form-title display-3 ">Register</h1>
         <form id="register" onSubmit={handleSubmit}>
           <div className="mb-3">
             <label htmlFor="firstName" className="form-label">
@@ -29,33 +32,38 @@ const Register = () => {
               type="text"
               className="form-control"
               id="firstName"
-              placeholder="Enter your first name please"
+              placeholder="Enter your first name.."
               required
               onChange={(e) => setFirstName(e.target.value)}
             />
+          </div>
+          <div className="mb-3">
             <label htmlFor="lastName" className="form-label">
               Last Name
             </label>
             <input
               type="text"
               className="form-control"
-              id="firstName"
-              placeholder="Enter your last name please"
+              id="lastName"
+              placeholder="Enter your last name.."
               required
               onChange={(e) => setLastName(e.target.value)}
             />
+          </div>
+          <div className="mb-3">
             <label htmlFor="email" className="form-label">
-              E-mail
+              Email
             </label>
             <input
               type="email"
               className="form-control"
-              id="firstName"
-              placeholder="Enter your email address please"
+              id="email"
+              placeholder="Enter your email adress.."
               required
               onChange={(e) => setEmail(e.target.value)}
             />
-
+          </div>
+          <div className="mb-3">
             <label htmlFor="password" className="form-label">
               Password
             </label>
@@ -63,12 +71,11 @@ const Register = () => {
               type="password"
               className="form-control"
               id="password"
-              placeholder="Enter your password please"
+              placeholder="Enter your password.."
               required
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-
           <input
             type="submit"
             className="btn btn-primary form-control"
